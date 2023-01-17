@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'todo_list2.html' %}
+
+{% block content %}
+
     <h1>todo list</h1>
-    {{request.user.is_authenticated}}
+    {% if request.user.is_authenticated %}
+        Hello {{request.user.username}}    
+    {% else %}
+        Hello anonymous user
+    {% endif %}
+    <a href="/create">Create a todo</a>
     <ul>
         {% for todo in todo_list %}
-            <li>{{ todo.name }}, it's due {{ todo.due_date }}</li>
+            <li class=" container list-group-item list-group-item-primary"><a href="/{{todo.id}}">{{ todo.name }}</a>, it's due {{ todo.due_date }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock %}
